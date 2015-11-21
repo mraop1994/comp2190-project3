@@ -15,6 +15,11 @@
 	border-top: 2px solid black;
 }
 
+.bord2{
+	border-top: 2px solid black;
+	text-align:left
+}
+
 .lft, td{
 	text-align: left;
 }
