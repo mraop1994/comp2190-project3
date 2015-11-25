@@ -1,0 +1,35 @@
+form{
+    width:440px;
+    border:1px dashed #ccc;
+    padding:10px 30px 40px;
+    background-color:#f0f8ff;
+    font-family:Tahoma;
+    font-size:13px
+}
+
+.input{
+    width:250px;
+    height:15px;
+    border-radius:1px;
+    box-shadow:0 0 1px 2px #123456;
+    margin-top:10px;
+    padding:5px;
+    border:none;
+    margin-bottom:20px
+}
+
+.submit{
+    color:#fff;
+    border-radius:3px;
+    background:#1F8DD6;
+    margin-top:40px;
+    border:none;
+    width:100px;
+    height:30px;
+    box-shadow:0 0 1px 2px #123456;
+    font-size:16px
+}
+
+.error{
+    color:red
+}
