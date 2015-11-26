@@ -93,20 +93,22 @@
                     $conn->exec($sql);
                     echo "New record created successfully";
                     
-                    $query = "SELECT * FROM Representatives";
-                    $result = mysql_query($query, mysql_connect($servername, $username, $password));
-                    $num = mysql_numrows($result);
-                    $i=0;
-                    while ($i < $num) {
-                        $first_name = mysql_result($result,$i,"first_name");
-                        $last_name = mysql_result($result,$i,"last_name");
-                        $constituency = mysql_result($result,$i,"constituency");
-                        $email = mysql_result($result,$i,"email");
-                        $hash = mysql_result($result,$i,"password_digest");
-                        $years_serv = mysql_result($result,$i,"yrs_service");
-                        echo "$first_name    $last_name     $constituency   $email  $hash   $years_serv";
-                        $i++;
+                    
+                    
+                    echo "<table style='border: solid 1px black;'>";
+                    echo "<tr><th>First Name</th><th>Last Name</th><th>Constituency</th><th>Email</th><th>Hash</th><th>Years of Service</th></tr>";
+                    
+                    
+                    $stmt = $conn->prepare("SELECT first_name, last_name, constituency, email, password_digest, yrs_service FROM Representatives");
+                    $stmt->execute();
+                    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    
+                    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+                        echo $v;
                     }
+                    
+                    echo "</table>";
+
                 }
             }
         }
@@ -120,6 +122,26 @@
        $data = htmlspecialchars($data);
        return $data;
     }
+    
+    class TableRows extends RecursiveIteratorIterator {
+        function __construct($it) {
+            parent::__construct($it, self::LEAVES_ONLY);
+        }
+        
+        function current() {
+            return "<td style='width: 150px; border: 1px solid black;'>" . parent::current(). "</td>";
+        }
+        
+        function beginChildren() {
+            echo "<tr>";
+        }
+        
+        function endChildren() {
+            echo "</tr>" . "\n";
+        }
+    }
+    
+    
     
     $conn = null;
 ?>
