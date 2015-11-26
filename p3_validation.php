@@ -19,12 +19,11 @@
     $servername = "localhost";
     $username = "comp2190SA";
     $password = "2015Sem1";
-    $dbname = "MPMgmtDB"
+    $dbname = "MPMgmtDB";
     
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected to database";
         
         if(isset($_POST['submit'])){
             if (empty($_POST["firstname"])) {
@@ -78,13 +77,22 @@
             if (empty($_POST["password2"])) {
                 $psw1Error = "Password is required";
             } else {
-                $psw1 = test_input($_POST["password1"]);
+                $psw1 = test_input($_POST["password2"]);
             }
             
             if( !($firstname=='') && !($lastname=='') && !($constituency=='') && !($email=='') && !($years=='') &&!($psw=='') &&!($psw1=='') ) {
-                $sql = "insert into Representatives (first_name, last_name, constituency, email, yrs_service) values ('$firstname', '$lastname', '$constituency', '$email', '$years')";
-                $conn->exec($sql);
-                echo "New record created successfully";
+                if (!(strcmp($psw, $psw1) == 0)) {
+                    echo "Passwords don't match";
+                } else {
+                    $pswMatch = $psw;
+                    $randNum = mt_rand();
+                    $digestRand = $pswMatch + $randNum;
+                    $digest = md5($digestRand);
+                    
+                    $sql = "insert into Representatives (first_name, last_name, constituency, email, yrs_service, password_digest, salt) values ('$firstname', '$lastname', '$constituency', '$email', '$years', '$digest', '$randNum')";
+                    $conn->exec($sql);
+                    echo "New record created successfully";
+                }
             }
         }
     } catch(PDOException $e) {

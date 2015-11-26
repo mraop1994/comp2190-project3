@@ -9,11 +9,11 @@ form{
 
 .input{
     width:250px;
-    height:15px;
+    height:20px;
     border-radius:1px;
     box-shadow:0 0 1px 2px #123456;
     margin-top:10px;
-    padding:5px;
+
     border:none;
     margin-bottom:20px
 }
@@ -27,7 +27,7 @@ form{
     width:100px;
     height:30px;
     box-shadow:0 0 1px 2px #123456;
-    font-size:16px
+    font-size:13px
 }
 
 .error{

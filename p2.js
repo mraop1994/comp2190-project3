@@ -1,4 +1,4 @@
-function ValidationEvent() {
+function ValidationTest() {
     var name1 = document.getElementById("firstname").value;
     var name2 = document.getElementById("lastname").value;
     var cnsty = document.getElementById("cnsty").value;
