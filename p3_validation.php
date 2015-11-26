@@ -92,6 +92,21 @@
                     $sql = "insert into Representatives (first_name, last_name, constituency, email, yrs_service, password_digest, salt) values ('$firstname', '$lastname', '$constituency', '$email', '$years', '$digest', '$randNum')";
                     $conn->exec($sql);
                     echo "New record created successfully";
+                    
+                    $query = "SELECT * FROM Representatives";
+                    $result = mysql_query($query, mysql_connect($servername, $username, $password));
+                    $num = mysql_numrows($result);
+                    $i=0;
+                    while ($i < $num) {
+                        $first_name = mysql_result($result,$i,"first_name");
+                        $last_name = mysql_result($result,$i,"last_name");
+                        $constituency = mysql_result($result,$i,"constituency");
+                        $email = mysql_result($result,$i,"email");
+                        $hash = mysql_result($result,$i,"password_digest");
+                        $years_serv = mysql_result($result,$i,"yrs_service");
+                        echo "$first_name    $last_name     $constituency   $email  $hash   $years_serv";
+                        $i++;
+                    }
                 }
             }
         }
